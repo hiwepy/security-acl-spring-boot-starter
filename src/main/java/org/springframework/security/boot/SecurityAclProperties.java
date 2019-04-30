@@ -3,21 +3,19 @@ package org.springframework.security.boot;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
-import org.springframework.security.boot.acl.SecurityActiveDirectoryLdapProperties;
-import org.springframework.security.boot.acl.SecurityLdapPopulatorProperties;
-import org.springframework.security.boot.acl.authentication.AuthoritiesMapperPolicy;
-import org.springframework.security.boot.acl.authentication.DirContextPolicy;
 
 @ConfigurationProperties(prefix = SecurityAclProperties.PREFIX)
 public class SecurityAclProperties {
 	
-	public static final String PREFIX = "spring.security.ldap";
+	public static final String PREFIX = "spring.security.acl";
 	
 	/**
-	 * Enable Security Ldap.
+	 * Enable Security ACL.
 	 */
 	private boolean enabled = false;
+	
+	private boolean forcePrincipalAsString = false;
+	protected boolean hideUserNotFoundExceptions = true;
 	
 	private boolean useAuthenticationRequestCredentials = true;
 
@@ -50,7 +48,6 @@ public class SecurityAclProperties {
 	private Map<String, Object> baseEnvironmentProperties;
 
 	private boolean cacheEnvironmentProperties = true;
-	private boolean hideUserNotFoundExceptions = true;
 	/** FilterBasedLdapUserSearch */
 	
 	/** Context name to search in, relative to the base of the configured ContextSource. */
@@ -85,30 +82,13 @@ public class SecurityAclProperties {
 	private boolean searchSubtree;
 	/** The time to wait before the search fails (in milliseconds); the default is zero, meaning forever. */
 	private int searchTimeLimit;
-	
-	private DirContextPolicy dirContextPolicy = DirContextPolicy.SIMPLE;
-	private AuthoritiesMapperPolicy authoritiesMapperPolicy = AuthoritiesMapperPolicy.NONE;
-	
-	@NestedConfigurationProperty
-	private SecurityLdapPopulatorProperties populator = new SecurityLdapPopulatorProperties();
-	
-	@NestedConfigurationProperty
-	private SecurityActiveDirectoryLdapProperties activeDirectory = new SecurityActiveDirectoryLdapProperties();
-	
-	
-	public SecurityLdapPopulatorProperties getPopulator() {
-		return populator;
-	}
-	public void setPopulator(SecurityLdapPopulatorProperties populator) {
-		this.populator = populator;
-	}
-	public SecurityActiveDirectoryLdapProperties getActiveDirectory() {
-		return activeDirectory;
-	}
-	public void setActiveDirectory(SecurityActiveDirectoryLdapProperties activeDirectory) {
-		this.activeDirectory = activeDirectory;
-	}
 	 
+	public boolean isForcePrincipalAsString() {
+		return forcePrincipalAsString;
+	}
+	public void setForcePrincipalAsString(boolean forcePrincipalAsString) {
+		this.forcePrincipalAsString = forcePrincipalAsString;
+	}
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -229,19 +209,7 @@ public class SecurityAclProperties {
 	public void setSearchTimeLimit(int searchTimeLimit) {
 		this.searchTimeLimit = searchTimeLimit;
 	}
-	public DirContextPolicy getDirContextPolicy() {
-		return dirContextPolicy;
-	}
-	public void setDirContextPolicy(DirContextPolicy dirContextPolicy) {
-		this.dirContextPolicy = dirContextPolicy;
-	}
 	 
-	public AuthoritiesMapperPolicy getAuthoritiesMapperPolicy() {
-		return authoritiesMapperPolicy;
-	}
-	public void setAuthoritiesMapperPolicy(AuthoritiesMapperPolicy authoritiesMapperPolicy) {
-		this.authoritiesMapperPolicy = authoritiesMapperPolicy;
-	}
 	public boolean isHideUserNotFoundExceptions() {
 		return hideUserNotFoundExceptions;
 	}
