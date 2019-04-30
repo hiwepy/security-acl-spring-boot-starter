@@ -13,19 +13,23 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.springframework.security.boot.acl.authentication;
+package org.springframework.security.boot.acl;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.acls.domain.BasePermission;
 
 /**
- * TODO
- * @author 		： <a href="https://github.com/vindell">wandl</a>
+ * https://elim.iteye.com/blog/2269021
+ * @author ： <a href="https://github.com/vindell">wandl</a>
  */
 
-public class LdapUsernamePasswordAuthenticationToken extends UsernamePasswordAuthenticationToken {
-
-	public LdapUsernamePasswordAuthenticationToken(Object principal, Object credentials) {
-		super(principal, credentials);
+public class BasePermissionExt extends BasePermission {
+	
+	public BasePermissionExt(int mask) {
+		super(mask);
 	}
 
+	public BasePermissionExt(int mask, char code) {
+		super(mask, code);
+	}
+	
 }
