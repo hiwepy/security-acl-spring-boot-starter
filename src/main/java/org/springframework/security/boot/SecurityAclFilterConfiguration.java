@@ -48,7 +48,6 @@ public class SecurityAclFilterConfiguration {
     	
     	private ApplicationEventPublisher eventPublisher;
     	
-        private final AuthenticationManager authenticationManager;
 	    private final ObjectMapper objectMapper;
 	    private final RememberMeServices rememberMeServices;
 	    private final UserDetailsServiceAdapter userDetailsService;
@@ -72,7 +71,6 @@ public class SecurityAclFilterConfiguration {
    		
    		public AclWebSecurityConfigurerAdapter(
    			
-   				ObjectProvider<AuthenticationManager> authenticationManagerProvider,
    				ObjectProvider<ObjectMapper> objectMapperProvider,
    				ObjectProvider<UserDetailsServiceAdapter> userDetailsServiceProvider,
    				ObjectProvider<PasswordEncoder> passwordEncoderProvider,
@@ -97,7 +95,6 @@ public class SecurityAclFilterConfiguration {
    			
    			this.userDetailsService = userDetailsServiceProvider.getIfAvailable();
    			this.passwordEncoder = passwordEncoderProvider.getIfAvailable();
-   			this.authenticationManager = authenticationManagerProvider.getIfAvailable();
    			this.objectMapper = objectMapperProvider.getIfAvailable();
    			this.rememberMeServices = rememberMeServicesProvider.getIfAvailable();
    			this.sessionRegistry = sessionRegistryProvider.getIfAvailable();
